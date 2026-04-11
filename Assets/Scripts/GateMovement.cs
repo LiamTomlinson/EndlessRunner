@@ -4,10 +4,10 @@ using UnityEngine;
 public class GateMovement : MonoBehaviour
 {
    
-    public float rightLimit = -0.44f;
-    public float leftLimit = -7.1f;
-    public float horizontalSpeed = 0;
-    // Update is called once per frame
+    public float rightLimit = 3f;
+    public float leftLimit = -4.2f;
+    public float horizontalSpeed = 2;
+   
     public bool movingLeft = true;
    
     void Update()
