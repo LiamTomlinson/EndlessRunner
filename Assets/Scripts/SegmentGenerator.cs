@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class SegmentGenerator : MonoBehaviour
@@ -8,19 +9,21 @@ public class SegmentGenerator : MonoBehaviour
     [SerializeField] int zPos = 0;
     [SerializeField] int segmentNum;
     [SerializeField] int segmentCap = 8;
-    private bool doubleNeg = false;
+    private int doubleNegCount = 0;
 
+   
     
     void Start()
     {
-        for (int segments = 0; segments < segmentCap; segments++)
+        for (int segments = 0; segments < segmentCap + LevelManager.instance.level ; segments++)
         {
             segmentNum = Random.Range(0,4);
             if (segmentNum == 1)
             {
-                if (doubleNeg == false)
+                doubleNegCount++;
+                if (doubleNegCount <= LevelManager.instance.level)
                 {
-                    doubleNeg = true;
+                    
                     Instantiate(segment[segmentNum], new Vector3(0,0,zPos), Quaternion.identity);
                     zPos += 40;
                 }
@@ -35,12 +38,19 @@ public class SegmentGenerator : MonoBehaviour
                 Instantiate(segment[segmentNum], new Vector3(0,0,zPos), Quaternion.identity);
                 zPos += 40;
             }
-
+            zPos -= 20;
             
         }
 
-        Instantiate(segment[4], new Vector3(0,0,zPos), Quaternion.identity);
-     
+        int wallCount = LevelManager.instance.level;
+
+        for (int walls = 0; walls < wallCount ; walls++)
+        {
+            Instantiate(segment[4], new Vector3(0,0,zPos), Quaternion.identity);
+            zPos += 10;
+        }
+
+        Instantiate(segment[5], new Vector3(0,0,zPos), Quaternion.identity);
     }
 
 
